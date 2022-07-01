@@ -89,9 +89,12 @@ alpha(data[,31:33]) # Q28~Q30: SI(Social Influence)
 
 ## Simple check for the box plot and interaction plot
 boxplot(Total ~ Group, data=data)
-ggplot(data, aes(x = AR, y = Total, fill = Zoo)) + geom_boxplot()
 
-interaction.plot(data$AR, data$Zoo, data$Total, 
+## MEAN & SD VALUE COMPARISON ##
+ggplot(data, aes(x = AR, y = PEOU, fill = Zoo)) + geom_boxplot()
+
+## Interaction Effect
+interaction.plot(data$AR, data$Zoo, data$SP, 
                  main = "Interaction Effect on AR & Zoomorphic",
                  xlab = "AR", ylab = "Score", type = "b",
                  pch = c(19, 22), col=c("blue", "red"), legend=TRUE)
@@ -104,15 +107,15 @@ interaction.plot(data$AR, data$Zoo, data$Total,
 
 
 ## One-way ANOVA test for each variable
-result_AR <-aov(Total ~ AR, data = data)
+result_AR <-aov(PEOU ~ AR, data = data)
 anova(result_AR)
 
-result_zoo <- aov(Total ~ Zoo, data = data)
+result_zoo <- aov(PEOU ~ Zoo, data = data)
 anova(result_zoo)
 
 
 ## Two-way ANOVA test for both variables
-result_both <- aov(ITU ~ Zoo * AR, data = data)
+result_both <- aov(SI ~ Zoo + AR, data = data)
 anova(result_both)
 
 
